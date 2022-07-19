@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include <stdlib.h>
-#include <Python.h>
+#include <python3.8/Python.h>
 
 
 class PyCall
@@ -44,6 +44,7 @@ class PyCall
             getFunc(&funcShow_, "show");
             getFunc(&funcSubplot_, "subplot");
             getFunc(&funcGrid_, "grid");
+            getFunc(&funcFigure_, "figure");
 
         }
 
@@ -52,7 +53,14 @@ class PyCall
             if(pModule_)
                 Py_DECREF(pModule_);
 
-            Py_Finalize();
+            // Py_Finalize();
+        }
+
+        static PyCall* getInstance() {
+            if(instance == nullptr) {
+                instance = new PyCall;
+            }
+            return instance;
         }
 
         int getFunc(PyObject** pyObject, const std::string& funcName)
@@ -157,10 +165,24 @@ class PyCall
                 Py_DECREF(args);
         }
 
-        void gridOn()
+        void grid()
         {
             PyObject* args = nullptr;
-            PyObject_CallObject(funcGrid_ , args);
+            PyObject_CallObject(funcGrid_ ,args);
+        }
+
+        void figure(int id, double width, double height)
+        {
+            PyObject* pFigureSize = PyList_New(2);
+            PyList_SetItem(pFigureSize, 0, PyFloat_FromDouble(width));
+            PyList_SetItem(pFigureSize, 1, PyFloat_FromDouble(height));
+
+
+            PyObject* args = PyTuple_New(2);
+            PyTuple_SetItem(args,0, Py_BuildValue("i", id));
+            PyTuple_SetItem(args,1, pFigureSize);
+
+            PyObject* pReturn = PyObject_CallObject(funcFigure_, args);
         }
 
     private:
@@ -171,6 +193,15 @@ class PyCall
         PyObject* funcSubplot_;
         PyObject* funcShow_;
         PyObject* funcGrid_;
+        PyObject* funcFigure_;
+        
+        static PyCall* instance;
+
+        class CRelease {
+        public:
+            ~CRelease() { delete instance; }
+        };
+        static CRelease release;
 };
 
 

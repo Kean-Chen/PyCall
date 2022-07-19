@@ -8,7 +8,10 @@ include_directories(
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-add_executable(pycall ${PROJECT_SOURCE_DIR}/source/main.cc)
+add_executable(pycall 
+    ${PROJECT_SOURCE_DIR}/source/main.cc
+    ${PROJECT_SOURCE_DIR}/source/PyCall.cc
+    )
 
 target_link_libraries(pycall python3.8)
 

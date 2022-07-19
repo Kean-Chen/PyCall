@@ -4,6 +4,7 @@ from scipy.fftpack import fft, ifft
 
 
 def show():
+    plt.axis('equal')
     plt.show()
 
 def subplot(i):
@@ -18,6 +19,8 @@ def tplot(x, op):
 def grid():
     plt.grid()
 
+def figure(id, figsize):
+    plt.figure(id, figsize)
 
 
 
