@@ -5,7 +5,7 @@ c/c++ code call python some function of matplotlib.pyplot
 
 
 # compile
-g++ -std=c++11 -I /usr/include/python3.6 main.cc -o main -L /usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ -lpython3.6
+g++ -std=c++11 -I /usr/include/python3.8 main.cc -o main  -lpython3.8
 
 
 # run
