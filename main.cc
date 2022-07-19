@@ -13,6 +13,7 @@ int main()
     pyCall.plot(x,"g");
     pyCall.subplot(212);
     pyCall.plot(x, xx,"ro");
+    pyCall.gridOn();
     pyCall.show();
 }
 

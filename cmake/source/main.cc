@@ -11,8 +11,10 @@ int main()
     PyCall pyCall;
     pyCall.subplot(211);
     pyCall.plot(x,"g");
+    pyCall.gridOn();
     pyCall.subplot(212);
     pyCall.plot(x, xx,"ro");
+    pyCall.gridOn();
     pyCall.show();
 }
 

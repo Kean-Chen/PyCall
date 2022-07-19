@@ -15,6 +15,9 @@ def plot(x, y, op):
 def tplot(x, op):
     plt.plot(x, op)
 
+def grid():
+    plt.grid()
+
 
 
 

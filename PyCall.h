@@ -43,6 +43,7 @@ class PyCall
             getFunc(&functPlot_, "tplot");
             getFunc(&funcShow_, "show");
             getFunc(&funcSubplot_, "subplot");
+            getFunc(&funcGrid_, "grid");
 
         }
 
@@ -156,6 +157,12 @@ class PyCall
                 Py_DECREF(args);
         }
 
+        void gridOn()
+        {
+            PyObject* args = nullptr;
+            PyObject_CallObject(funcGrid_ , args);
+        }
+
     private:
         PyObject* pModule_;
         PyObject* pDict_;
@@ -163,6 +170,7 @@ class PyCall
         PyObject* functPlot_;
         PyObject* funcSubplot_;
         PyObject* funcShow_;
+        PyObject* funcGrid_;
 };
 
 
