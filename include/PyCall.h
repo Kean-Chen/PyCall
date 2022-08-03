@@ -45,6 +45,12 @@ class PyCall
             getFunc(&funcSubplot_, "subplot");
             getFunc(&funcGrid_, "grid");
             getFunc(&funcFigure_, "figure");
+            getFunc(&funcClose_, "close");
+            getFunc(&funcIon_, "ion");
+            getFunc(&funcIoff_, "ioff");
+            getFunc(&funcClf_, "clf");
+            getFunc(&funcXlim_, "xlim");
+            getFunc(&funcYlim_, "ylim");
 
         }
 
@@ -78,6 +84,30 @@ class PyCall
         {
             PyObject* args = nullptr;
             PyObject_CallObject(funcShow_ ,args);
+        }
+
+        void close()
+        {
+            PyObject* args = nullptr;
+            PyObject_CallObject(funcClose_ ,args);
+        }
+
+        void ion()
+        {
+            PyObject* args = nullptr;
+            PyObject_CallObject(funcIon_ ,args);
+        }
+
+        void ioff()
+        {
+            PyObject* args = nullptr;
+            PyObject_CallObject(funcIoff_ ,args);
+        }
+
+        void clf()
+        {
+            PyObject* args = nullptr;
+            PyObject_CallObject(funcClf_ ,args);
         }
 
         int plot(const std::vector<double>& x, const std::vector<double>& y, const std::string& op)
@@ -185,6 +215,26 @@ class PyCall
             PyObject* pReturn = PyObject_CallObject(funcFigure_, args);
         }
 
+        void xlim(double min, double max)
+        {
+            PyObject* args = PyTuple_New(2);
+            PyTuple_SetItem(args,0, PyFloat_FromDouble(min));
+            PyTuple_SetItem(args,1, PyFloat_FromDouble(max));
+
+            PyObject* pReturn = PyObject_CallObject(funcXlim_, args);
+        }
+
+        void ylim(double min, double max)
+        {
+            PyObject* args = PyTuple_New(2);
+            PyTuple_SetItem(args,0, PyFloat_FromDouble(min));
+            PyTuple_SetItem(args,1, PyFloat_FromDouble(max));
+
+            PyObject* pReturn = PyObject_CallObject(funcYlim_, args);
+        }
+
+
+
     private:
         PyObject* pModule_;
         PyObject* pDict_;
@@ -194,6 +244,12 @@ class PyCall
         PyObject* funcShow_;
         PyObject* funcGrid_;
         PyObject* funcFigure_;
+        PyObject* funcClose_;
+        PyObject* funcIon_;
+        PyObject* funcIoff_;
+        PyObject* funcClf_;
+        PyObject* funcXlim_;
+        PyObject* funcYlim_;
         
         static PyCall* instance;
 
